@@ -9,8 +9,10 @@ import org.zerock.domain.MemberVO;
 @Repository
 public class MemberDAOimpl implements MemberDAO{
 	
+	
 	@Inject
 	private SqlSession sqlSession;
+	
 	
 	private static final String namespace =
 			"org.zerock.mapper.MemberMapper";
@@ -18,12 +20,12 @@ public class MemberDAOimpl implements MemberDAO{
 	@Override
 	public String getTime() {
 		
-		return sqlSession.selectOne(namespace,".getTime" );
+		return sqlSession.selectOne(namespace+".getTime" );
 	}
 
 	@Override
 	public void insertMember(MemberVO vo) {
-		sqlSession.insert(namespace+"insertMember", vo);
+		sqlSession.insert(namespace+".insertMember", vo);
 	}
 	
 	
