@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(
 		locations= {"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
 public class DataSourceTest {
-// junit 버전이 두개인가 pom.xml에서확인하길 바람 두개면 실행 x	
+// junit 踰꾩쟾�씠 �몢媛쒖씤媛� pom.xml�뿉�꽌�솗�씤�븯湲� 諛붾엺 �몢媛쒕㈃ �떎�뻾 x	
 	@Inject
 	private DataSource ds;
 	
@@ -25,8 +25,6 @@ public class DataSourceTest {
 			con.close();
 		}catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			
 		}
 		
 	}

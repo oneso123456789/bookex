@@ -21,12 +21,15 @@ public class MemberDAOTest {
 	public void testTime() throws Exception{
 		
 		MemberVO vo = new MemberVO();
-		vo.setUserid("user01");
+		vo.setUserid("user08");
 		vo.setUserpw("user00");
 		vo.setUsername("USER00"); 
 		vo.setEmail("user00@aaa.com");
 		
-		dao.insertMember(vo);
+//		dao.insertMember(vo);
+		
+//		dao.readMember("user08");
+		dao.readWithPW("user01", "user00");
 	}
 
 }
