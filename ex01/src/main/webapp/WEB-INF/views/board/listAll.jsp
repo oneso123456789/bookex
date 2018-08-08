@@ -56,7 +56,7 @@
 					<h3 class="box-title">LIST ALL PAGE</h3>
 				</div>
 				<div class="box-body">
-				
+				 
 <table class="table table-bordered">
 	<tr>
 		<th style="width: 10px">BNO</th>
