@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
+import org.zerock.domain.PageMaker;
 import org.zerock.service.BoardService;
 
 @Controller
@@ -74,6 +76,28 @@ public class BoardController {
 		rttr.addFlashAttribute("msg", "SUCCESS");
 
 		return "redirect:/board/listAll";
+	}
+	
+	@RequestMapping(value ="/listCri", method = RequestMethod.GET)
+	public void listAll(Criteria cri, Model model) throws Exception{
+		
+		logger.info("show list Page with Criteria");
+		
+		model.addAttribute("list" , service.listCriteria(cri));
+	}
+	
+	@RequestMapping(value ="/listPage", method = RequestMethod.GET)
+	public void listPage(Criteria cri, Model model) throws Exception{
+		
+		logger.info(cri.toString());
+		
+		model.addAttribute("list", service.listCriteria(cri));
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(131);
+		
+		model.addAttribute("pageMaker", pageMaker);
+		
 	}
 
 }
