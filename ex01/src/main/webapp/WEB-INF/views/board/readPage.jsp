@@ -1,17 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
-<form role="form" method="post">
+<form role="form" action="modifyPage" method="post">
 	
 	<input type="hidden" name="bno" value="${boardVO.bno}">
+	<input type="hidden" name="page" value="${cri.page}">
+	<input type='hidden' name='perPageNum' value ="${cri.perPageNum}">
 
 </form>
 
 <div class="box-body">
 	<div class="form-group">
-		<label for="exampleInputEmail1">Title</label><input type="text"
-		name="title" class="form-control" value="${boardVO.title}"
-		readonly="readonly">
+		<label for="exampleInputEmail1">Title</label>
+		<input type="text" name="title" class="form-control" 
+		value="${boardVO.title}" readonly="readonly">
 	</div>
 	<div class="form-group">
 	<label for="exampleInputPassword1">Content</label>
@@ -49,7 +51,9 @@ $(document).ready(function(){
 	});
 	
 	$(".btn-primary").on("click", function(){
-		self.location = "/board/listPage";
+		formObj.attr("method", "get");
+		formObj.attr("action", "/board/listPage");
+		formObj.submit();
 	});
 });
 </script>
