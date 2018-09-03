@@ -42,7 +42,7 @@
 				<a href="listPage${pageMaker.makeQuery(idx)}">${idx}</a>
 			</li>
 		</c:forEach>
-		
+
 		<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 			<il>
 			<a href="listPage${pageMaker.makeQuery(pageMaker.endPage +1) }">&raquo;</a>
@@ -52,7 +52,8 @@
 </div>
 
 <form id="jobForm">
-	<input type='hidden' name="page" value=${pageMaker.cri.page}>
+
+	<input type='hidden' name="page" value=${pageMaker.cri.Page}>
 	<input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum}>
 </form>
 
@@ -63,18 +64,15 @@
 		alert("처리가 완료 되었습니당.")
 	}
 
-	$(".pagination li a").on("click", function(event) {
+ 	$(".pagination li a").on("click", function(event) {
 
 		event.preventDefault();
-		
+
 		var targetPage = $(this).attr("href");
-		
+
 		var jobForm = $("#jobForm");
 		jobForm.find("[name='page']").val(targetPage);
 		jobForm.attr("action", "/board/listPage").attr("method", "get");
-		
-//		alert(jobForm.html());
-		
 		jobForm.submit();
 	}); 
 </script>
