@@ -73,7 +73,7 @@
 		jobForm.find("[name='page']").val(targetPage);
 		jobForm.attr("action", "/board/listPage").attr("method", "get");
 		
-//		alert(jobForm.html());
+//	alert(jobForm.html());
 		
 		jobForm.submit();
 	}); 
