@@ -29,6 +29,8 @@ select * from tbl_board ;
 # 게시물의 전체 목록에 사용하는 SQL
 select * from tbl_board where bno > 0 order by bno desc;
 
+select * from tbl_board where title = "나르" ; 
+
 # 게시물의 수정에 사용하는 SQL
 update tbl_board set title='수정된 제목' where bno = 1;
 

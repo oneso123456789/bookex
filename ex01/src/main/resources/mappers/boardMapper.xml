@@ -77,7 +77,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 
-<sql id="search">
+
+<!-- <sql id="search">
  <if test="searchType != null" > 
    <if test="searchType == 't'.toString()">
      and title like CONCAT('%', #{keyword}, '%')
@@ -102,8 +103,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              writer like CONCAT('%', #{keyword}, '%'))
    </if>              
  </if>  
-</sql>
- 
+</sql> -->
+
+<sql id="search">
+    <if test="searchType != null">
+  	<if test="searchType == 't'.toString()">
+  		and title like CONCAT('%', #{keyword}, '%')
+  	</if>
+  	<if test="searchType == 'c'.toString()">
+  		and content like CONCAT('%', #{keyword}, '%')
+  	</if>
+  	<if test="searchType == 'w'.toString()">
+  		and writer like CONCAT('%', #{keyword}, '%')
+  	</if>
+  	<if test="searchType == 'tc'.toString()">
+  		and ( title like CONCAT('%', #{keyword}, '%') OR content like CONCAT('%', #{keyword}, '%'))
+  	</if>
+  	<if test="searchType == 'cw'.toString()">
+  		and ( content like CONCAT('%', #{keyword}, '%') OR writer like CONCAT('%', #{keyword}, '%'))
+  	</if>
+  	<if test="searchType == 'tcw'.toString()">
+  		and ( 	title like CONCAT('%', #{keyword}, '%') 
+  			OR 
+  				content like CONCAT('%', #{keyword}, '%')
+  			OR
+  				writer like CONCAT('%', #{keyword}, '%'))
+  	</if>
+  </if>
+ </sql>
 <select id="listSearch" resultType="BoardVO">
 <![CDATA[  
   select * 
@@ -111,8 +138,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   where bno > 0 
 ]]>  
 
-  <include refid="search"></include>
-  
+<include refid="search"></include>
+ 
 <![CDATA[    
   order by bno desc
   limit #{pageStart}, #{perPageNum}
