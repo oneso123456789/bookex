@@ -21,9 +21,7 @@ public class Criteria {
 		}
 		this.page = page;
 	}
-	public int getPerPageNum() {
-		return perPageNum;
-	}
+	
 	public void setPerPageNum(int perPageNum) {
 		
 		if(perPageNum <= 0 || perPageNum > 100) {
@@ -33,7 +31,17 @@ public class Criteria {
 		
 		this.perPageNum = perPageNum;
 	}
-
+	
+	//	method for MyBatis SQL Mapper -
+	public int getPageStart() {
+		return (this.page - 1) * perPageNum;
+	}
+	
+	// method for MyBatis SQL Mapper
+	public int getPerPageNum() {
+		
+		return this.perPageNum;
+	}
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
