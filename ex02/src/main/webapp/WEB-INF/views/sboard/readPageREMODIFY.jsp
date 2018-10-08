@@ -31,22 +31,20 @@
 	</div>
 	<div class="form-group">
 	<label for="exampleInputPassword1">Content</label>
-	<textarea class="form-control" name="content" rows="3" 
-		readonly="readonly">${boardVO.content}</textarea>
+	<textarea class="form-control" name="content" rows="3" readonly="readonly">${boardVO.content}</textarea>
 	</div>
 	<div class="form-group">
-		<label for="exampleInputEmail1">Writer</label>
-		<input type="text" name="writer" class="form-control" value="${boardVO.writer}"
-			readonly="readonly">
+	<label for="exampleInputEmail1">Writer</label>
+	<input type="text" name="writer" class="form-control" value="${boardVO.writer}" readonly="readonly">
 	</div>
 </div>
 
 <!-- /.box-body -->
 
 <div class="box-footer">
-	<button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
-	<button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
-	<button type="submit" class="btn btn-primary" id="goListBtn">GO LIST</button>
+	<button type="submit" class="btn btn-warning modifyBtn">Modify</button>
+	<button type="submit" class="btn btn-danger removeBtn">REMOVE</button>
+	<button type="submit" class="btn btn-primary goListBtn">GO LIST</button>
 </div>
 
 
@@ -60,12 +58,12 @@
 <div class="row">
 	<div class="col-md-12">
 	
-		<div class="box box-success">
+		<div class="box box=success">
 			<div class="box-header">
 				<h3 class="box-title">ADD NEW REPLY</h3>
 			</div>
 			<div class="box-body">
-				<label for="exampleInputEmail1">Writer</label>
+				<label for="newReplyWriter">Writer</label>
 					<input class="form-control" type="text" placeholder="USER ID"
 					id="newReplyWriter"> <label for="exampleInputEmail1">ReplyText</label>
 					<input class="form-control" type="text"
@@ -74,7 +72,7 @@
 			</div>
 			<!-- /.box-body -->
 			<div class="box-footer">
-				<button type="button" class="btn btn-primary" id="replyAddBtn">ADD REPLY</button>
+				<button type="submit" class="btn btn-primary" id="replyAddBtn">ADD REPLY</button>
 			</div>
 		</div>
 		
@@ -129,8 +127,7 @@
 		</span>
 		<h3 class="timeline-header"><strong>{{rno}}</strong> -{{replyer}}</h3>
 		<div class="timeline-body">{{replytext}}</div>
-			<div class="timeline-footer">
-			 <a class="btn btn-primary btn-xs"
+			<div class="btn btn-primary btn-xs"
 					data-toggle="modal" data-target="#modifyModal">Modify</a>
 			</div>
 		</div>
@@ -175,7 +172,7 @@
 		var str= "";
 		
 		if (pageMaker.prev) {
-			str += "<li><a href='" + (pageMaker.startPage - 1)
+			str += "<li><a href='" + (pageMaker,startPage - 1)
 					+ "'> << </a></li>";
 		}
 		
@@ -221,7 +218,7 @@
 			url:'/replies/',
 			headers: {
 				"Content-Type": "application/json",
-				"X-HTTP-Method-Override": "POST"},
+				"X-HTTP-Method-Ovrride": "POST"},
 			dataType:'text',
 			data: JSON.stringify({bno:bno, replyer:replyer, replytext:replytext}),
 			success:function(result){
@@ -296,18 +293,18 @@ $(document).ready(function(){
 	
 	console.log(formObj);
 	
-	$("#modifyBtn").on("click",function(){
+	$(".btn-warning").on("click",function(){
 		formObj.attr("action", "/sboard/modifyPage");
 		formObj.attr("method", "get");
 		formObj.submit();
 	});
 	
-	$("#removeBtn").on("click", function(){
+	$(".btn-danger").on("click", function(){
 		formObj.attr("action", "/sboard/removePage");
 		formObj.submit();
 	});
 	
-	$("#goListBtn").on("click", function(){
+	$(".goListBtn").on("click", function(){
 		formObj.attr("method", "get");
 		formObj.attr("action", "/sboard/list");
 		formObj.submit();
