@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	
+<!-- handlebars를 사용하려면 반드시 jQuery 라이브러리가 필요함 jQuery라이브러리를 로딩후 사용해야함 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
+<div id="displayDiv">
+
+</div>
+
+<script>
+	var source = "<h1><p>name:{{name}}</p> <p>{{userid}}</p> <p>{{addr}}</p></h1>";
+	var template = Handlebars.compile(source);
+	<!-- name : 형식으로 해야함 =형식으로 하면오류발생 -->
+	var data = {name:"크로우", userid:"user00", addr:"지구상어딘가"};
+	
+	$("#displayDiv").html(template(data));
+</script>
+</body>
+</html>
