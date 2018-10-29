@@ -5,6 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.SearchCriteria;
@@ -20,10 +22,13 @@ public class BoardServiceImpl implements BoardService {
   public void regist(BoardVO board) throws Exception {
     dao.create(board);
   }
-
+  
+  //Transaction으로 격리성 부여 격리성은 데이터베이스 기본 사용수준 다른연결이 커밋하지 않은 데이터는 볼수없음
+  @Transactional(isolation=Isolation.READ_COMMITTED)
   @Override
   public BoardVO read(Integer bno) throws Exception {
-    return dao.read(bno);
+	  dao.updateViewCnt(bno); //먼저 ViewCnt를 업데이트 한 후 읽어온다.
+	  return dao.read(bno);
   }
 
   @Override
