@@ -40,7 +40,7 @@ public class UploadController {
 	}
 	
 	@RequestMapping(value = "/uploadForm", method = RequestMethod.POST)
-	public void uploadForm(MultipartFile file, Model model)throws Exception {
+	public String uploadForm(MultipartFile file, Model model)throws Exception {
 		
 		logger.info("originalName: " + file.getOriginalFilename());
 		logger.info("size: " + file.getSize());
@@ -49,6 +49,10 @@ public class UploadController {
 		String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
 		
 		model.addAttribute("savedName", savedName);
+		
+//     UUID로 	6574ace7-a724-471c-945b-a39e21501cb6_ 같은 문자열을 삽입하기때문에 이름이 너무 길면 alert(msg)에 안나올때가 있음	
+		return "uploadResult";
+		
 	}
 	
 	private String uploadFile(String originalName, byte[] fileData) throws Exception{
@@ -62,5 +66,10 @@ public class UploadController {
 		FileCopyUtils.copy(fileData, target);
 		
 		return savedName;
+	}
+	
+	@RequestMapping(value = "uploadAjax", method = RequestMethod.GET)
+	public void uploadAjax() {
+		
 	}
 }
