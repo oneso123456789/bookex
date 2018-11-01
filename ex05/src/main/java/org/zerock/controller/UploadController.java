@@ -8,12 +8,15 @@ import javax.annotation.Resource;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 /*
  파일 업로드에서 주의해야할점은 동일한 경로에 동일한 이름의 파일을 업로드 하는것임
@@ -71,5 +74,21 @@ public class UploadController {
 	@RequestMapping(value = "uploadAjax", method = RequestMethod.GET)
 	public void uploadAjax() {
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/uploadAjax",
+					method = RequestMethod.POST,
+					produces = "text/plain;chaarset=UTF-8")
+	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception{
+		
+		logger.info("originalName: " + file.getOriginalFilename());
+		logger.info("size: " + file.getSize());
+		logger.info("contentType: " + file.getContentType());
+		
+		return
+			new ResponseEntity<>(file.getOriginalFilename(), HttpStatus.CREATED);
+		
+
 	}
 }

@@ -35,6 +35,30 @@ small {
 		
 		$(".fileDrop").on("drop", function(event){
 			event.preventDefault();
+			
+			var files = event.originalEvent.dataTransfer.files;
+			
+			var file = files[0];
+			
+		//	console.log(file);
+		
+			var formData = new FormData();
+			
+			formData.append("file", file);
+			
+			$.ajax({
+				url: '/uploadAjax',
+				data: formData,
+				dataType:'text',
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				success: function(data){
+					
+					alert(data);
+					
+				}
+			});
 		});
 	</script>
 	
