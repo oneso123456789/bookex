@@ -4,13 +4,16 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
 import org.imgscalr.Scalr;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.FileCopyUtils;
 
+// UploadFileUtils는 static으로 구성된 클래스 메소드들만을 가지기 때문에 그 자체로 테스트 가능함
 public class UploadFileUtils {
 	
 	private static final Logger logger =
@@ -19,7 +22,34 @@ public class UploadFileUtils {
 	public static String uploadFile(String uploadPath,
 			String originalName, byte[] fileData)throws Exception{
 		
-		return null;
+		UUID uid = UUID.randomUUID();
+		
+		String savedName = uid.toString() + "_" + originalName;
+//		저장될 경로를 계산함(code 28)		
+		String savedPath = calcPath(uploadPath);
+		
+		File target = new File(uploadPath + savedPath, savedName);
+//		원본 파일을 저장하는 부분(code 32)		
+		FileCopyUtils.copy(fileData, target);
+//		원본 파일의 확장자를 의미함(code 34) getMediaType() 메소드를 이용해서 이미지 파일인 경우와 그렇지 않은 경루를 나누어 처리함(code 38~42) 		
+		String formatName = originalName.substring(originalName.lastIndexOf(".")+1);
+		
+		String uploadedFileName = null;
+//		이미지 타입일 경우에는 Thumbnail을 생성하고 그렇지 않을 경우에는 makeIcon을 통해서 결과를 만들어냄		
+		if(MediaUtils.getMediaType(formatName) != null) {
+			uploadedFileName = makeThumbnail(uploadPath, savedPath, savedName);
+		}else {
+			uploadedFileName = makeIcon(uploadPath, savedPath, savedName);
+		}
+		
+		return uploadedFileName;
+	}
+//	makeIcon은 경로 처리를 하는 문자열의 치환용도에 불가함	
+	private static String makeIcon(String uploadPath, String path, String fileName)throws Exception{
+		
+		String iconName = uploadPath + path + File.separator + fileName;
+		
+		return iconName.substring(uploadPath.length()).replace(File.separatorChar, '/');
 	}
 	
 	private static String calcPath(String uploadPath) {
@@ -74,4 +104,5 @@ public class UploadFileUtils {
 //		리턴해줄때 	File.separator(분리기호)를 /로 치환하는 이유는 브라우저에서 윈도우의 경로 \ 문자가 정상적인 경로로 인식이 불가능함 (/)로 꼭 치환
 		return thumbnailName.substring(uploadPath.length()).replace(File.separator, "/");
 	}
+	
 }
