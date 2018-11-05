@@ -82,10 +82,11 @@ public class UploadController {
 		
 	}
 	
+// Mapping 에서 오타 안나게 조심할것 "text/plain;chaarset=UTF-8" 이라고 해서 한글 깨졌음	
 	@ResponseBody
 	@RequestMapping(value = "/uploadAjax",
 					method = RequestMethod.POST,
-					produces = "text/plain;chaarset=UTF-8")
+					produces = "text/plain;charset=UTF-8")
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception{
 		
 		logger.info("originalName: " + file.getOriginalFilename());
