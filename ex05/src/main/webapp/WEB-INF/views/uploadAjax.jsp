@@ -90,20 +90,38 @@ small {
 					
 					console.log(data);
 					console.log(checkImageType(data));
-					
+
+//					<small> 태그를 이용해서 파일옆에 X표시가 나타나게 처리함 2018-11-07					
 					if(checkImageType(data)){
 						str = "<div>"
 							+"<a href=displayFile?fileName="+getImageLink(data)+">"
 							+"<img src='displayFile?fileName="+data+"'/>"
-							+ getImageLink(data) +"</a></div>";		
+							+"</a><small data-src="+data+">X</small></div>";		
 					}else{
 						str="<div><a href='displayFile?fileName="+data+"'>"
-							+ getOriginalName(data)+"</a></div>";
+							+ getOriginalName(data)+"</a><small data-src="+data+">X</small></div>";
 					}
 					
 					$(".uploadedList").append(str);
 				}
 			});
+		});
+		
+		$(".uploadedList").on("click", "small", function(event){
+				
+				var that = $(this);
+//				<small>태그로 처리된 X를 클릭하면 data-src의 속성값으로 사용된 파일의 이름을 얻어와서 POST방식으로 호출함 (code 114~123)				
+				$.ajax({
+					url:"deleteFile",
+					type:"post",
+					data: {fileName:$(this).attr("data-src")},
+					dataType:"text",
+					success:function(result){
+						if(result == 'deleted'){
+							that.parent("div").remove();
+						}
+					}
+				});
 		});
 		
 		function checkImageType(fileName){
