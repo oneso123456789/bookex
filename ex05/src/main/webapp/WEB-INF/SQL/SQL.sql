@@ -60,3 +60,23 @@ update tbl_board set replycnt =
 from
  tbl_reply
  where bno = tbl_board.bno) where bno > 0;
+ 
+ 
+/* tbl_attach에서 첨부파일의 이름은 업로드 시점에 고유하게 처리되기 때문에, primary key(기본키)로 사용가능
+ * 모든 첨부파일의 정보는 특정 게시물과 관련이 있으므로, bno 칼럼을 생성하고, 이는 외래키(foreign key)로 참조해서 사용
+ * 이렇게 데이터베이스의 구조가 변경되기 때문에 등록 작업에도 트랜잭션 처리가 필요함
+ * 게시물이 등록될 때 기존의 tbl_board에만 insert되는것이 아니라, tbl_attach라는 테이블에도 어떤 게시물이 어떤 첨부파일을 사용하게 되는지를 저장
+*/
+ create table tbl_attach(
+ 	fullName varchar(150) not null,
+ 	bno int not null,
+ 	regdate timestamp default now(),
+ 	primary key(fullName)
+ );
+ 
+ alter table tbl_attach add constraint fk_board_attach
+ foreign key (bno) references tbl_board (bno);
+ 
+ select * from tbl_attach;
+ 
+ commit;

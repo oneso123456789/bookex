@@ -1,5 +1,6 @@
 package org.zerock.domain;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class BoardVO {
@@ -12,6 +13,16 @@ public class BoardVO {
 	private int viewcnt;
 	private int replycnt;
 	
+	private String[] files;
+	
+	
+	
+	public String[] getFiles() {
+		return files;
+	}
+	public void setFiles(String[] files) {
+		this.files = files;
+	}
 	public Integer getBno() {
 		return bno;
 	}
@@ -60,7 +71,8 @@ public class BoardVO {
 	public String toString() {
 		return "BoardVO [bno=" + bno + ", title=" + title + ", content="
 				+ content + ", writer=" + writer + ", regdate=" + regdate
-				+ ", viewcnt=" + viewcnt + "replycnt="+ replycnt +"]";
+				+ ", viewcnt=" + viewcnt + "replycnt="+ replycnt 
+				+ ", files="+ Arrays.toString(files) + "]";
 	}
 
 }

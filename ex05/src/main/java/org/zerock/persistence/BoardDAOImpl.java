@@ -24,8 +24,18 @@ public class BoardDAOImpl implements BoardDAO {
   public void create(BoardVO vo) throws Exception {
     session.insert(namespace + ".create", vo);
   }
+  
+  
 
   @Override
+public void addAttach(String fullName) throws Exception {
+	// TODO Auto-generated method stub
+	session.insert(namespace+".addAttach", fullName);
+}
+
+
+
+@Override
   public BoardVO read(Integer bno) throws Exception {
     return session.selectOne(namespace + ".read", bno);
   }

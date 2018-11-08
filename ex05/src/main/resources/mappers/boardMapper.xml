@@ -9,6 +9,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  insert into tbl_board (title, content, writer) 
  values(#{title},#{content}, #{writer})
  </insert>
+ 
+<!-- LAST_INSERT_ID : 바로 직전에 생성된  PK를 알아낼때 사용함 -->
+<insert id="addAttach">
+insert into tbl_attach(fullName, bno) values (#{fullName}, LAST_INSERT_ID())
+</insert>
 
  <select id="read" resultType="org.zerock.domain.BoardVO">
  select 

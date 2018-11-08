@@ -18,9 +18,20 @@ public class BoardServiceImpl implements BoardService {
   @Inject
   private BoardDAO dao;
 
+ @Transactional
   @Override
   public void regist(BoardVO board) throws Exception {
     dao.create(board);
+    
+    String[] files = board.getFiles();
+    
+    if(files == null ) {
+    	return;
+    }
+    
+    for(String fileName : files) {
+    	dao.addAttach(fileName);
+    }
   }
   
   //Transaction으로 격리성 부여 격리성은 데이터베이스 기본 사용수준 다른연결이 커밋하지 않은 데이터는 볼수없음
