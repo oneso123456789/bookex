@@ -128,7 +128,11 @@
 			}
 		});
 	});
-	
+//	<form>태그의 submit은 먼저 기본 동작을 막고 (code 133), 현재까지 업로드 된 파일들을 <input type='hidden'>으로 추가합니다(code 140)
+//	이때 각 파일은 files[0]과 같은 이름으로 추가되는데, 이 배열 표시를 이용해서 컨트롤러에서는 BoardVO의 files 피라미터를 수집
+//	모든 파일의 정보를 <input type='hidden'> dmfh todtjdgks gndpsms <form> 데이터의 submit을 호출해서 서브를 호출 
+// jQuery의 get(0)은 순후한 DOM 객체를 얻어내기 위해서 사용
+//	만일 마지막의 submit() (code 149)부분을 주석 처리하고  submit()하지 않는다면, 여러개의 파일이 존재할 때 DOM 요소의 변화를 아래 화면처럼 확인 가능
 	$("#registerForm").submit(function(event){	
 		event.preventDefault();
 	

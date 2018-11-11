@@ -79,36 +79,7 @@ insert into tbl_attach(fullName, bno) values (#{fullName}, LAST_INSERT_ID())
    bno > 0 
  ]]>
  </select>
-
-
-
-
-<!-- <sql id="search">
- <if test="searchType != null" > 
-   <if test="searchType == 't'.toString()">
-     and title like CONCAT('%', #{keyword}, '%')
-   </if>
-   <if test="searchType == 'c'.toString()">
-     and content like CONCAT('%', #{keyword}, '%')
-   </if>
-   <if test="searchType == 'w'.toString()">
-     and writer like CONCAT('%', #{keyword}, '%')
-   </if>     
-   <if test="searchType == 'tc'.toString()">
-     and ( title like CONCAT('%', #{keyword}, '%') OR content like CONCAT('%', #{keyword}, '%'))
-   </if>        
-   <if test="searchType == 'cw'.toString()">
-     and ( content like CONCAT('%', #{keyword}, '%') OR writer like CONCAT('%', #{keyword}, '%'))
-   </if>        
-   <if test="searchType == 'tcw'.toString()">
-     and (   title like CONCAT('%', #{keyword}, '%') 
-           OR 
-             content like CONCAT('%', #{keyword}, '%') 
-           OR 
-             writer like CONCAT('%', #{keyword}, '%'))
-   </if>              
- </if>  
-</sql> -->
+ 
 
 <sql id="search">
     <if test="searchType != null">
@@ -170,4 +141,7 @@ insert into tbl_attach(fullName, bno) values (#{fullName}, LAST_INSERT_ID())
  	update tbl_board set viewcnt = viewcnt +1 where bno = #{bno}
  </update> 
  
+ <select id="getAttach" resultType="string">
+ 	select fullname from tbl_attach where bno = #{bno} order by regdate
+ </select>
 </mapper>

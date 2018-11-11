@@ -109,5 +109,13 @@ public void updateViewCnt(Integer bno) throws Exception {
 }
 
 
+
+@Override
+public List<String> getAttach(Integer bno) throws Exception {
+	// TODO Auto-generated method stub
+	return session.selectList(namespace+".getAttach", bno);
+}
+
+
   
 }
