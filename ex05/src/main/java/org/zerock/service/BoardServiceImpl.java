@@ -35,21 +35,37 @@ public class BoardServiceImpl implements BoardService {
   }
   
   //Transaction으로 격리성 부여 격리성은 데이터베이스 기본 사용수준 다른연결이 커밋하지 않은 데이터는 볼수없음
-  @Transactional(isolation=Isolation.READ_COMMITTED)
+ @Transactional(isolation=Isolation.READ_COMMITTED)
   @Override
   public BoardVO read(Integer bno) throws Exception {
 	  dao.updateViewCnt(bno); //먼저 ViewCnt를 업데이트 한 후 읽어온다.
 	  return dao.read(bno);
   }
 
+ @Transactional
   @Override
   public void modify(BoardVO board) throws Exception {
     dao.update(board);
+    
+    Integer bno = board.getBno();
+    
+    dao.deleteAttach(bno);
+    
+    String[] files = board.getFiles();
+    
+    if(files == null) {
+    	return;
+    }
+    
+    for(String fileName : files) {
+    	dao.replaceAttach(fileName, bno);
+    }
   }
-
+@Transactional
   @Override
   public void remove(Integer bno) throws Exception {
-    dao.delete(bno);
+      dao.deleteAttach(bno);
+	  dao.delete(bno);
   }
 
   @Override

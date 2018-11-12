@@ -117,5 +117,27 @@ public List<String> getAttach(Integer bno) throws Exception {
 }
 
 
+
+@Override
+public void deleteAttach(Integer bno) throws Exception {
+	// TODO Auto-generated method stub
+	session.delete(namespace+".deleteAttach", bno);
+}
+
+
+
+@Override
+public void replaceAttach(String fullName, Integer bno) throws Exception {
+	// TODO Auto-generated method stub
+	
+	Map<String, Object> paramMap = new HashMap<String, Object>();
+	
+	paramMap.put("bno", bno);
+	paramMap.put("fullName", fullName);
+	
+	session.insert(namespace+".replaceAttach", paramMap);
+}
+
+
   
 }
