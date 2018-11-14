@@ -115,7 +115,7 @@
 			<!-- timeline time label -->
 			<li class="time-label" id="repliesDiv">
 			<span class="bg-green">
-				Replies List <small id='replycntSmall'> [ ${boardVO.replycnt} ] </small>
+				Replies List <small id='replycntSmall'>${boardVO.replycnt}</small>
 			</span>
 			</li>
 		</ul>
@@ -152,6 +152,55 @@
 
 </section>
 <!-- /.content -->
+
+<script>
+$(document).ready(function(){
+
+	var formObj = $("form[role='form']");
+	
+	console.log(formObj);
+	
+	$("#modifyBtn").on("click",function(){
+		formObj.attr("action", "/sboard/modifyPage");
+		formObj.attr("method", "get");
+		formObj.submit();
+	});
+	
+	$("#removeBtn").on("click", function(){
+		
+		var replyCnt =  $("#replycntSmall").html();
+		alert($(replyCnt).val());
+		if(replyCnt > 0){
+			alert("댓글이 달린 게시물을 삭제할 수 없습니다.");
+			return;
+		}
+		
+		var arr = [];
+		$(".uploadedList li").each(function(index){
+			arr.push($(this).attr("data-src"));
+		});
+		
+		console.log(arr);
+		if(arr.length > 0){
+			$.post("/deleteAllfiles",{files:arr}, function(){
+				
+			});
+		}
+			formObj.attr("action", "/sboard/removePage");
+			formObj.submit();
+		/* formObj.attr("action", "/sboard/removePage");
+		formObj.submit(); */
+	});
+	
+	
+	
+	$("#goListBtn").on("click", function(){
+		formObj.attr("method", "get");
+		formObj.attr("action", "/sboard/list");
+		formObj.submit();
+	});
+});
+</script>
 <script id="templateAttach" type="text/x-handlebars-template">
 <li data-src='{{fullName}}'>
 	<span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
@@ -210,7 +259,7 @@
 			printPaging(data.pageMaker, $(".pagination"));
 			
 			$("#modifyModal").modal('hide');
-			$("#replycntSmall").html("[" + data.pageMaker.totalCount + " ]");
+			$("#replycntSmall").html(data.pageMaker.totalCount);
 		});
 	}
 	
@@ -289,6 +338,7 @@
 	});
 	
 	
+	
 	$("#replyModBtn").on("click",function(){
 		
 		var rno = $(".modal-title").html();
@@ -317,48 +367,25 @@
 		var replytext = $("#replytext").val();
 		
 		$.ajax({
-			type:'delete',
-			url:'/replies/'+rno,
-			headers: {
-					"Content-Type": "application/json",
-					"X-HTTP-Method-Override": "DELETE" },
-			dataType:'text',
-			success:function(result){
-				console.log("result: " + result);
-				if(result == 'SUCCESS'){
-					alert("삭제 되었습니다.");
-					getPage("/replies/"+bno+"/"+replyPage );
-				}
+				type:'delete',
+				url:'/replies/' + rno,
+				headers: {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "DELETE"
+				},
+				dataType : 'text',
+				success : function(result){
+					console.log("result: " + result);
+					if(result == 'SUCCESS'){
+						alert("삭제 되었습니다.");
+						getPage("/replies/" + bno + "/" + replyPage);
+						}
 			}});
 	});
 	
 </script>
 
-<script>
-$(document).ready(function(){
 
-	var formObj = $("form[role='form']");
-	
-	console.log(formObj);
-	
-	$("#modifyBtn").on("click",function(){
-		formObj.attr("action", "/sboard/modifyPage");
-		formObj.attr("method", "get");
-		formObj.submit();
-	});
-	
-	$("#removeBtn").on("click", function(){
-		formObj.attr("action", "/sboard/removePage");
-		formObj.submit();
-	});
-	
-	$("#goListBtn").on("click", function(){
-		formObj.attr("method", "get");
-		formObj.attr("action", "/sboard/list");
-		formObj.submit();
-	});
-});
-</script>
 
 
 

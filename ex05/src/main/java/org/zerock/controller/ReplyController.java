@@ -1,6 +1,5 @@
 package org.zerock.controller;
 
-import java.awt.print.Pageable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -101,7 +100,7 @@ public class ReplyController {
 			service.removeReply(rno);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 			entity = new ResponseEntity<>(
 					e.getMessage(), HttpStatus.BAD_GATEWAY);
 		}
@@ -134,6 +133,7 @@ public class ReplyController {
 			map.put("pageMaker", pageMaker);
 			
 			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

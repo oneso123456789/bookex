@@ -3,6 +3,7 @@ package org.zerock.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -173,15 +174,15 @@ public class UploadController {
 	}
 	
    @ResponseBody
-    @RequestMapping(value="/deleteAllFiles", method=RequestMethod.POST)
-   	public ResponseEntity<String> deleteFile(@RequestParam("files[]") String[] files){
+   @RequestMapping(value="/deleteAllFiles", method=RequestMethod.POST)
+   public ResponseEntity<String> deleteFile(@RequestParam("files[]") String[] files){
 	   
-	   logger.info("delete all files: " + files);
+	   logger.info("delete all files: " + Arrays.toString(files));
 	   
 	   if(files == null || files.length == 0) {
 		   return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	   }
-	   
+/*	   
 	   for (String fileName : files) {
 		   String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
 		   
@@ -195,7 +196,7 @@ public class UploadController {
 		   }
 		   
 		   new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
-	   }
+	   }*/
 	   return new ResponseEntity<String>("deleted", HttpStatus.OK);
    }
 }

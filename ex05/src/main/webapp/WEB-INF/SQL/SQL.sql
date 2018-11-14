@@ -61,7 +61,7 @@ from
  tbl_reply
  where bno = tbl_board.bno) where bno > 0;
  
- 
+delete from tbl_board where bno = 1535;
 /* tbl_attach에서 첨부파일의 이름은 업로드 시점에 고유하게 처리되기 때문에, primary key(기본키)로 사용가능
  * 모든 첨부파일의 정보는 특정 게시물과 관련이 있으므로, bno 칼럼을 생성하고, 이는 외래키(foreign key)로 참조해서 사용
  * 이렇게 데이터베이스의 구조가 변경되기 때문에 등록 작업에도 트랜잭션 처리가 필요함
