@@ -17,6 +17,7 @@ foreign key (bno) references tbl_board (bno);
 
 select * from tbl_reply ;
 
+/*로그인 처리용 테이블*/
 create table tbl_user(
 	uid varchar(50) not null,
 	upw varchar(50) not null,
@@ -78,5 +79,10 @@ delete from tbl_board where bno = 1535;
  foreign key (bno) references tbl_board (bno);
  
  select * from tbl_attach;
+ 
+ 
+
+ 
+ show tables ;
  
  commit;
