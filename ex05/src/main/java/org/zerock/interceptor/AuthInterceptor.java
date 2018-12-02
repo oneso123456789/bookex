@@ -16,7 +16,7 @@ import org.zerock.service.UserService;
 public class AuthInterceptor extends HandlerInterceptorAdapter {
 
   private static final Logger logger = LoggerFactory.getLogger(AuthInterceptor.class);
-  
+
   @Inject
   private UserService service;
   
@@ -33,7 +33,18 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
       
       saveDest(request);
       
-
+      Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+      if(loginCookie != null) {
+    	  
+    	  UserVO userVO = service.checkLoginBefore(loginCookie.getValue());
+    	  
+    	  logger.info("USERVO: " + userVO);
+    	  
+    	  if(userVO != null) {
+    		  session.setAttribute("login", userVO);
+    		  return true;
+    	  }
+      }
       response.sendRedirect("/user/login");
       return false;
     }

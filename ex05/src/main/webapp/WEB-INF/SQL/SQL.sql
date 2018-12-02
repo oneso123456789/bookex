@@ -81,8 +81,14 @@ delete from tbl_board where bno = 1535;
  select * from tbl_attach;
  
  
+alter table tbl_user add column
+sessionkey varchar(50) not null default 'none';
 
+alter table tbl_user
+add column sessionlimit timestamp;
  
+
+select * from tbl_user ;
  show tables ;
  
  commit;

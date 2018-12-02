@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserVO checkLoginBefore(String value) {
 		// TODO Auto-generated method stub
+		
 		return dao.checkUserWithSessionKey(value);
 	}
 	

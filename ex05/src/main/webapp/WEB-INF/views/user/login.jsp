@@ -47,10 +47,8 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-8">
-			<div class="checkbox icheck">
-				<label>
-					<input type="checkbox" name="useCookie"> Remember Me
-				</label>
+			<div class="checkbox icheck"><br>
+				<label><input type="checkbox" name="useCookie">Remember Me</label>
 			</div>
 		</div><!-- /.col -->
 		<div class="col-xs-4">
